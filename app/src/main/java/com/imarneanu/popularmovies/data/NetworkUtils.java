@@ -55,7 +55,7 @@ public class NetworkUtils {
     }
 
     private static Uri buildTopRatedUri() {
-        return Uri.parse(BASE_URL).buildUpon().appendPath(MOVIE_TOP_RATED)
+        return Uri.parse(BASE_URL).buildUpon().appendEncodedPath(MOVIE_TOP_RATED)
                 .appendQueryParameter(PARAM_API_KEY, BuildConfig.API_KEY).build();
     }
 
