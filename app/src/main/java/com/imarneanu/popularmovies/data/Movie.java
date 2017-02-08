@@ -1,9 +1,12 @@
 package com.imarneanu.popularmovies.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by imarneanu on 2/8/17.
  */
-public class Movie {
+public class Movie implements Parcelable {
 
     private String originalTitle;
     private String posterPath;
@@ -39,6 +42,38 @@ public class Movie {
     public String getReleaseDate() {
         return releaseDate;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(this.originalTitle);
+        parcel.writeString(this.posterPath);
+        parcel.writeString(this.plot);
+        parcel.writeString(this.userRating);
+        parcel.writeString(this.releaseDate);
+    }
+
+    private Movie(Parcel in) {
+        this.originalTitle = in.readString();
+        this.posterPath = in.readString();
+        this.plot = in.readString();
+        this.userRating = in.readString();
+        this.releaseDate = in.readString();
+    }
+
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+        public Movie createFromParcel(Parcel source) {
+            return new Movie(source);
+        }
+
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
 
     public static class MovieBuilder {
         private String originalTitle;
