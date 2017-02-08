@@ -1,5 +1,6 @@
-package com.imarneanu.popularmovies;
+package com.imarneanu.popularmovies.activities;
 
+import com.imarneanu.popularmovies.R;
 import com.imarneanu.popularmovies.adapters.MoviePosterAdapter;
 import com.imarneanu.popularmovies.data.JsonUtils;
 import com.imarneanu.popularmovies.data.Movie;

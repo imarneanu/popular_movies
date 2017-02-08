@@ -1,5 +1,6 @@
-package com.imarneanu.popularmovies;
+package com.imarneanu.popularmovies.activities;
 
+import com.imarneanu.popularmovies.R;
 import com.imarneanu.popularmovies.data.Movie;
 import com.imarneanu.popularmovies.data.NetworkUtils;
 import com.squareup.picasso.Picasso;
