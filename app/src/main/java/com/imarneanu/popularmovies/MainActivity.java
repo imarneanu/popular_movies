@@ -70,7 +70,16 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.movies_error_message).setVisibility(View.VISIBLE);
     }
 
+    private void showLoading(boolean show) {
+        findViewById(R.id.movies_progressbar).setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
     public class MovieDbQueryTask extends AsyncTask<URL, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            showLoading(true);
+        }
 
         @Override
         protected String doInBackground(URL... urls) {
@@ -86,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
+            showLoading(false);
             if (TextUtils.isEmpty(s)) {
                 showErrorMessage();
                 return;
