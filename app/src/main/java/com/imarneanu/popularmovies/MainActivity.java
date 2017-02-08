@@ -1,5 +1,7 @@
 package com.imarneanu.popularmovies;
 
+import com.imarneanu.popularmovies.data.JsonUtils;
+import com.imarneanu.popularmovies.data.Movie;
 import com.imarneanu.popularmovies.data.NetworkUtils;
 
 import android.os.AsyncTask;
@@ -10,6 +12,7 @@ import android.util.Log;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         new MovieDbQueryTask().execute(NetworkUtils.buildUrl(NetworkUtils.UrlType.POPULAR));
     }
 
-    private void loadPopularMovies(String s) {
+    private void loadPopularMovies(ArrayList<Movie> movies) {
 
     }
 
@@ -53,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             if (TextUtils.isEmpty(s)) {
                 return;
             }
-            loadPopularMovies(s);
+            loadPopularMovies(JsonUtils.parseJsonMovie(s));
         }
     }
 }
