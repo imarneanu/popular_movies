@@ -14,7 +14,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.net.URL;
@@ -33,8 +35,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mMoviePosterAdapter = new MoviePosterAdapter(this);
-        GridView mMoviesGridView = (GridView) findViewById(R.id.movies_gridview);
-        mMoviesGridView.setAdapter(mMoviePosterAdapter);
+        GridView moviesGridView = (GridView) findViewById(R.id.movies_gridview);
+        moviesGridView.setAdapter(mMoviePosterAdapter);
+        moviesGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v,
+                                    int position, long id) {
+                Toast.makeText(getApplicationContext(), "POSITION: " + position, Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
         mShowPopular = true;
         new MovieDbQueryTask().execute(NetworkUtils.buildUrl(NetworkUtils.UrlType.POPULAR));
