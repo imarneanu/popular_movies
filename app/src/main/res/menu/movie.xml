@@ -5,12 +5,10 @@
     tools:context=".MainActivity">
     <item
         android:id="@+id/action_filter_popular"
-        android:orderInCategory="1"
         android:title="@string/action_popular"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_filter_top_rated"
-        android:orderInCategory="1"
         android:title="@string/action_top_rated"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
 </menu>
