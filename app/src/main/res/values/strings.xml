@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Popular Movies</string>
-    
+    <string name="activity_detail">Movie Detail</string>
+
     <string name="error_message">Failed to get results, please try again.</string>
 
     <string name="action_popular">Filter popular movies</string>
