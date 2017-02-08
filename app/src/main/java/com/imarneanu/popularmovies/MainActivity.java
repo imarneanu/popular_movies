@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.GridView;
 
 import java.io.IOException;
@@ -20,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
     private final static String TAG = MainActivity.class.getSimpleName();
 
-    private GridView mMoviesGridView;
     private MoviePosterAdapter mMoviePosterAdapter;
 
     @Override
@@ -28,15 +28,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        URL url = NetworkUtils.buildUrl(NetworkUtils.UrlType.POPULAR);
-        Log.d(TAG, "URL: " + url);
-        url = NetworkUtils.buildUrl(NetworkUtils.UrlType.TOP_RATED);
-        Log.d(TAG, "URL: " + url);
-        url = NetworkUtils.buildUrl(NetworkUtils.UrlType.MOVIE_DETAILS, "328111");
-        Log.d(TAG, "URL: " + url);
-
         mMoviePosterAdapter = new MoviePosterAdapter(this);
-        mMoviesGridView = (GridView) findViewById(R.id.movies_gridview);
+        GridView mMoviesGridView = (GridView) findViewById(R.id.movies_gridview);
         mMoviesGridView.setAdapter(mMoviePosterAdapter);
 
         new MovieDbQueryTask().execute(NetworkUtils.buildUrl(NetworkUtils.UrlType.POPULAR));
@@ -44,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadPopularMovies(ArrayList<Movie> movies) {
         mMoviePosterAdapter.setMoviePosters(movies);
+    }
+
+    private void showErrorMessage() {
+        findViewById(R.id.movies_error_message).setVisibility(View.VISIBLE);
     }
 
     public class MovieDbQueryTask extends AsyncTask<URL, Void, String> {
@@ -63,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             if (TextUtils.isEmpty(s)) {
+                showErrorMessage();
                 return;
             }
             loadPopularMovies(JsonUtils.parseJsonMovie(s));
