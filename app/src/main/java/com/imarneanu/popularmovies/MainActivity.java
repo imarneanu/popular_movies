@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private final static String TAG = MainActivity.class.getSimpleName();
 
     private MoviePosterAdapter mMoviePosterAdapter;
+    private boolean mShowPopular;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         GridView mMoviesGridView = (GridView) findViewById(R.id.movies_gridview);
         mMoviesGridView.setAdapter(mMoviePosterAdapter);
 
+        mShowPopular = true;
         new MovieDbQueryTask().execute(NetworkUtils.buildUrl(NetworkUtils.UrlType.POPULAR));
     }
 
@@ -50,12 +52,18 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_filter_popular) {
-            new MovieDbQueryTask().execute(NetworkUtils.buildUrl(NetworkUtils.UrlType.POPULAR));
+            if (!mShowPopular) {
+                new MovieDbQueryTask().execute(NetworkUtils.buildUrl(NetworkUtils.UrlType.POPULAR));
+            }
+            mShowPopular = true;
             return true;
         }
 
         if (id == R.id.action_filter_top_rated) {
-            new MovieDbQueryTask().execute(NetworkUtils.buildUrl(NetworkUtils.UrlType.TOP_RATED));
+            if (mShowPopular) {
+                new MovieDbQueryTask().execute(NetworkUtils.buildUrl(NetworkUtils.UrlType.TOP_RATED));
+            }
+            mShowPopular = false;
             return true;
         }
 
