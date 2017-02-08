@@ -21,8 +21,13 @@ public class JsonUtils {
             ArrayList<Movie> movies = new ArrayList<>(results.length());
             for (int index = 0; index < results.length(); index++) {
                 JSONObject jsonMovie = results.getJSONObject(index);
+                String originalTitle = jsonMovie.getString("original_title");
                 String posterPath = jsonMovie.getString("poster_path");
-                movies.add(new Movie(posterPath));
+                String overview = jsonMovie.getString("overview");
+                String voteAverage = jsonMovie.getString("vote_average");
+                String releaseDate = jsonMovie.getString("release_date");
+                movies.add(new Movie.MovieBuilder(posterPath).originalTitle(originalTitle)
+                        .plot(overview).userRating(voteAverage).releaseDate(releaseDate).createMovie());
             }
             return movies;
         } catch (JSONException e) {
