@@ -5,6 +5,7 @@ import com.imarneanu.popularmovies.data.JsonUtils;
 import com.imarneanu.popularmovies.data.Movie;
 import com.imarneanu.popularmovies.data.NetworkUtils;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private final static String TAG = MainActivity.class.getSimpleName();
 
     private MoviePosterAdapter mMoviePosterAdapter;
+    private ArrayList<Movie> mMovies;
     private boolean mShowPopular;
 
     @Override
@@ -40,8 +41,9 @@ public class MainActivity extends AppCompatActivity {
         moviesGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                Toast.makeText(getApplicationContext(), "POSITION: " + position, Toast.LENGTH_SHORT).show();
-
+                Intent detailActivity = new Intent(MainActivity.this, DetailActivity.class);
+                detailActivity.putExtra(DetailActivity.EXTRA_MOVIE, mMovies.get(position));
+                startActivity(detailActivity);
             }
         });
 
@@ -80,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadMovies(ArrayList<Movie> movies) {
+        mMovies = movies;
         mMoviePosterAdapter.setMoviePosters(movies);
     }
 
