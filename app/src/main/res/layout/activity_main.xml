@@ -2,13 +2,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+    <GridView
         android:id="@+id/movies_gridview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:horizontalSpacing="1dp"
-        android:numColumns="2"
+        android:numColumns="@dimen/num_columns"
         android:stretchMode="columnWidth"
         android:verticalSpacing="1dp" />
 
